@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: note-service
+
+  config:
+    import:
+      - optional:file:./.env[.properties]
+      - optional:file:./../.env[.properties]
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/notes}
+    username: ${DB_USERNAME:notes}
+    password: ${DB_PASSWORD:notes}
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+server:
+  port: ${SERVER_PORT:8081}
+
+logging:
+  level:
+    root: INFO
+    # DEBUG для пакета — видны входящие запросы и чтение заметок
+    com.tereshkevich.noteservice: ${LOG_LEVEL:DEBUG}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    # выключается одной переменной окружения (например, в проде)
+    enabled: ${SPRINGDOC_ENABLED:true}
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: ${SPRINGDOC_ENABLED:true}
+    operations-sorter: alpha
+    tags-sorter: alpha

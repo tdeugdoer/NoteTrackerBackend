@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-seed-notes
+      author: tereshkevich
+      comment: Стартовые демо-заметки
+      changes:
+        - insert:
+            tableName: notes
+            columns:
+              - column:
+                  name: title
+                  value: Первая заметка
+              - column:
+                  name: content
+                  value: Привет! Это заметка, созданная миграцией Liquibase.
+              - column:
+                  name: created_at
+                  valueComputed: now()
+        - insert:
+            tableName: notes
+            columns:
+              - column:
+                  name: title
+                  value: Вторая заметка
+              - column:
+                  name: content
+                  value: Каждое изменение схемы описывается отдельным changeset.
+              - column:
+                  name: created_at
+                  valueComputed: now()
+        - insert:
+            tableName: notes
+            columns:
+              - column:
+                  name: title
+                  value: Третья заметка
+              - column:
+                  name: content
+                  value: Эта запись появилась из db/changelog/changes/002-seed-notes.yaml.
+              - column:
+                  name: created_at
+                  valueComputed: now()
+      rollback:
+        - delete:
+            tableName: notes
+            where: title in ('Первая заметка', 'Вторая заметка', 'Третья заметка')

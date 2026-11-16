@@ -1,13 +1,13 @@
-package com.tereshkevich.notetracker;
+package com.tereshkevich.noteservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NoteTrackerApplication {
+public class NoteServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NoteTrackerApplication.class, args);
+        SpringApplication.run(NoteServiceApplication.class, args);
     }
 
 }

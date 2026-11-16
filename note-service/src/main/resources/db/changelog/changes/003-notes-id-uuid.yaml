@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-notes-id-uuid
+      author: tereshkevich
+      comment: Первичный ключ notes переведён с bigint на uuid (данные сохраняются)
+      changes:
+        - sql:
+            comment: Добавляем uuid-колонку, заполняем существующие строки и меняем PK
+            sql: |
+              ALTER TABLE notes ADD COLUMN id_uuid uuid;
+              UPDATE notes SET id_uuid = gen_random_uuid();
+              ALTER TABLE notes DROP CONSTRAINT notes_pkey;
+              ALTER TABLE notes DROP COLUMN id;
+              ALTER TABLE notes RENAME COLUMN id_uuid TO id;
+              ALTER TABLE notes ALTER COLUMN id SET NOT NULL;
+              ALTER TABLE notes ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
+      rollback:
+        - sql:
+            comment: Возврат к bigint identity (значения id будут назначены заново)
+            sql: |
+              CREATE SEQUENCE notes_id_seq;
+              ALTER TABLE notes ADD COLUMN id_old bigint;
+              UPDATE notes SET id_old = nextval('notes_id_seq');
+              ALTER TABLE notes DROP CONSTRAINT notes_pkey;
+              ALTER TABLE notes DROP COLUMN id;
+              ALTER TABLE notes RENAME COLUMN id_old TO id;
+              ALTER TABLE notes ALTER COLUMN id SET NOT NULL;
+              ALTER TABLE notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq');
+              ALTER TABLE notes ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
+              ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
