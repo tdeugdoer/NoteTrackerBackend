@@ -6,6 +6,7 @@ COPY gradlew gradlew.bat ./
 COPY gradle ./gradle
 COPY settings.gradle build.gradle ./
 COPY note-service/build.gradle ./note-service/build.gradle
+COPY history-service/build.gradle ./history-service/build.gradle
 
 RUN sed -i 's/\r$//' gradlew && chmod +x gradlew
 

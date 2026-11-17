@@ -20,4 +20,5 @@ public class ApiExceptionHandler {
         problem.setTitle(NoteMessages.NOT_FOUND_TITLE);
         return problem;
     }
+
 }

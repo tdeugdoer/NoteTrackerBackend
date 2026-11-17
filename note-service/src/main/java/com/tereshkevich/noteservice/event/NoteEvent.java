@@ -10,4 +10,5 @@ public record NoteEvent(EventType eventType, UUID noteId, Instant timestamp) {
         UPDATED,
         DELETED
     }
+
 }

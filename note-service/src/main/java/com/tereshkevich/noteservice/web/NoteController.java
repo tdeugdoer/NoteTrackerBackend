@@ -73,4 +73,5 @@ public class NoteController {
         log.debug(LogMessages.DELETE_REQUEST_RECEIVED, id);
         noteService.delete(id);
     }
+
 }

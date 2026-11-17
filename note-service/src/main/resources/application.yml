@@ -34,13 +34,11 @@ server:
 logging:
   level:
     root: INFO
-    # DEBUG для пакета — видны входящие запросы и чтение заметок
     com.tereshkevich.noteservice: ${LOG_LEVEL:DEBUG}
 
 springdoc:
   api-docs:
     path: /v3/api-docs
-    # выключается одной переменной окружения (например, в проде)
     enabled: ${SPRINGDOC_ENABLED:true}
   swagger-ui:
     path: /swagger-ui.html

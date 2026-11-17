@@ -17,4 +17,5 @@ public class OpenApiConfig {
                         .description(OpenApiDocs.DESCRIPTION)
                         .version(OpenApiDocs.VERSION));
     }
+
 }

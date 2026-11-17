@@ -48,4 +48,5 @@ public class Note {
             createdAt = Instant.now();
         }
     }
+
 }

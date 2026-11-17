@@ -19,4 +19,5 @@ public class OpenApiDocs {
     public final String FIND_ALL_SUMMARY = "Список всех заметок";
     public final String UPDATE_SUMMARY = "Обновить заметку";
     public final String DELETE_SUMMARY = "Удалить заметку";
+
 }

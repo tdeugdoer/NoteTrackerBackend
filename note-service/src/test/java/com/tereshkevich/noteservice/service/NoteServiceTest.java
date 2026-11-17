@@ -91,4 +91,5 @@ class NoteServiceTest {
         verify(repository).delete(note);
         verify(publisher).publish(NoteEvent.EventType.DELETED, NOTE_ID);
     }
+
 }

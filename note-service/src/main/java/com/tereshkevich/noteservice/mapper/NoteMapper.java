@@ -20,4 +20,5 @@ public interface NoteMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     void updateEntity(NoteRequest request, @MappingTarget Note note);
+
 }

@@ -62,4 +62,5 @@ public class NoteService {
         log.info(LogMessages.NOTE_DELETED, id);
         publisher.publish(NoteEvent.EventType.DELETED, id);
     }
+
 }
