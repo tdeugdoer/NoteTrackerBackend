@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: history-service
+
+  config:
+    import:
+      - optional:file:./.env[.properties]
+      - optional:file:./../.env[.properties]
+
+  mongodb:
+    uri: ${MONGODB_URI:mongodb://localhost:27018/history}
+    # без этого UUID-поля (noteId) не кодируются: драйвер требует явного representation
+    representation:
+      uuid: standard
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
+    consumer:
+      group-id: history-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      properties:
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.tereshkevich.historyservice.event.NoteEvent
+        spring.json.trusted.packages: com.tereshkevich.historyservice
+
+server:
+  port: ${HISTORY_SERVER_PORT:8082}
+
+notes-service:
+  url: ${NOTES_SERVICE_URL:http://localhost:8081}
+
+logging:
+  level:
+    root: INFO
+    com.tereshkevich.historyservice: ${LOG_LEVEL:DEBUG}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: ${SPRINGDOC_ENABLED:true}
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: ${SPRINGDOC_ENABLED:true}
+    operations-sorter: alpha
+    tags-sorter: alpha

@@ -1,3 +1,4 @@
 rootProject.name = 'NoteTracker'
 
 include 'note-service'
+include 'history-service'
